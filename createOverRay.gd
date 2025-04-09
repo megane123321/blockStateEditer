@@ -4,7 +4,14 @@ extends Button
 func _ready() -> void:
 	pressed.connect(createOverRay)
 
+var overRay:OverRay=null
+
 func createOverRay() -> void:
-	var overRay=OverRay.new()
+	overRay=OverRay.new()
 	print("create!")
-	add_child(overRay)
+	get_parent().add_child(overRay)
+	
+func getOverRay() -> OverRay:
+	if overRay==null:
+		createOverRay()
+	return overRay
