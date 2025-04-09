@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp7h4n2rumbdq"]
+
+[ext_resource type="Script" uid="uid://yukbovt2uh31" path="res://new_file.gd" id="1_7cosj"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="new_file" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -124.0
+offset_right = 36.0
+offset_bottom = -93.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "新規作成"
+script = ExtResource("1_7cosj")
+
+[node name="open_file" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -15.5
+offset_right = 47.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "ファイルを開く"
