@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcx48xapq4s6f"]
+
+[ext_resource type="Script" uid="uid://bv1jjilkgfdtf" path="res://edit/edit.gd" id="1_nrulf"]
+[ext_resource type="Script" uid="uid://d34dxjgxbq3q5" path="res://edit/pre_view.gd" id="2_ipym4"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_nrulf")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="GUI"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "changed?"
+
+[node name="preView" type="Node3D" parent="."]
+script = ExtResource("2_ipym4")
+
+[node name="loadingOverRay" type="Node" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="loadingOverRay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="loadingOverRay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 50
+text = "読み込み中..."
+horizontal_alignment = 1
+vertical_alignment = 1

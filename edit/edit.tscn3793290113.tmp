@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcx48xapq4s6f"]
+
+[ext_resource type="Script" uid="uid://bv1jjilkgfdtf" path="res://edit/edit.gd" id="1_nrulf"]
+[ext_resource type="Script" uid="uid://d34dxjgxbq3q5" path="res://edit/pre_view.gd" id="2_ipym4"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_nrulf")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="GUI"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "changed?"
+
+[node name="preView" type="Node3D" parent="."]
+script = ExtResource("2_ipym4")

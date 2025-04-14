@@ -8,7 +8,6 @@ var overRay:OverRay=null
 
 func createOverRay() -> void:
 	overRay=OverRay.new()
-	print("create!")
 	get_parent().add_child(overRay)
 	
 func getOverRay() -> OverRay:

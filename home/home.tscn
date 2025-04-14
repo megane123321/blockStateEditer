@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cp7h4n2rumbdq"]
+[gd_scene load_steps=3 format=3 uid="uid://cp7h4n2rumbdq"]
 
-[ext_resource type="Script" uid="uid://yukbovt2uh31" path="res://new_file.gd" id="1_7cosj"]
+[ext_resource type="Script" uid="uid://yukbovt2uh31" path="res://home/new_file.gd" id="1_2lk2h"]
+[ext_resource type="Script" uid="uid://dbh1qulsqx5fq" path="res://home/open_file.gd" id="2_rybx1"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -23,8 +24,9 @@ offset_right = 36.0
 offset_bottom = -93.0
 grow_horizontal = 2
 grow_vertical = 2
+tooltip_text = "新しくファイルを作成します"
 text = "新規作成"
-script = ExtResource("1_7cosj")
+script = ExtResource("1_2lk2h")
 
 [node name="open_file" type="Button" parent="."]
 layout_mode = 1
@@ -39,4 +41,6 @@ offset_right = 47.0
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
+tooltip_text = "既存のブロック状態のjsonファイルを開きます"
 text = "ファイルを開く"
+script = ExtResource("2_rybx1")
