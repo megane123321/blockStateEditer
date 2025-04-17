@@ -4,8 +4,8 @@ extends Node
 var error:AcceptDialog
 var overRay:OverRay
 
-func toEdit(fileName:String="") -> void:
-	if not fileName.ends_with(".json"):
+func toEdit(fileName:String="",fileOpen:bool=true) -> void:
+	if not (fileOpen or fileName.ends_with(".json")):
 		error=AcceptDialog.new()
 		error.canceled.connect(closeError)
 		error.confirmed.connect(closeError)
@@ -17,6 +17,7 @@ func toEdit(fileName:String="") -> void:
 		return
 	var sceneNode=load("res://edit/edit.tscn").instantiate()
 	sceneNode.path=fileName
+	sceneNode.open=fileOpen
 	var packed=PackedScene.new()
 	packed.pack(sceneNode)
 	get_tree().change_scene_to_packed(packed)

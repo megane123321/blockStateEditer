@@ -9,10 +9,16 @@ func addStateKey(key:String) -> void:
 	if not key in KeyList:
 		KeyList.append(key)
 
-func loadBlock(path:String) -> void:
+func setWorkPath(path:String) -> void:
 	workPath=path.substr(0,path.rfind("/",path.rfind("/blockstates")-1))
 	if path==workPath:
 		workPath=""
+
+func newFile(path:String) -> void:
+	setWorkPath(path)
+
+func loadBlock(path:String) -> void:
+	setWorkPath(path)
 	var file=FileAccess.open(path,FileAccess.READ)
 	var json:Dictionary=JSON.parse_string(file.get_as_text())
 	if "variants" in json:
