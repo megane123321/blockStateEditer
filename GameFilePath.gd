@@ -1,9 +1,13 @@
 class_name GameFilePath
 
 const MODEL_FOLDER="models"
+const BLOCK_STATE_FOLDER="blockstates"
 
 static func getModelPath(path:String,workPath:String) -> String:
 	return getPath(path,workPath,MODEL_FOLDER)
+
+static func getBlockStatePath(path:String,workPath:String) ->String:
+	return getPath(path,workPath,BLOCK_STATE_FOLDER)
 
 static func getPath(path:String,workPath:String,type:String) -> String:
 	var tmp=path.split(":")

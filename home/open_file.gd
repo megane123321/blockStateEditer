@@ -20,6 +20,5 @@ func open() -> void:
 	add_child(openFile)
 	openFile.visible=true
 
-func closeWindow(dummy="dummy") -> void:
-	print(dummy)
+func closeWindow() -> void:
 	remove_child(openFile)
