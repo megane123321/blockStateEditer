@@ -1,3 +1,5 @@
 class_name Constant
 
-const gameName="minecraft"
+const GAME_NAME="minecraft"
+const PARENT="parent"
+const TEXTURES_KEYS="textures"

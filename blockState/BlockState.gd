@@ -59,7 +59,6 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 			if "when" in tmp:
 				tmpDict["when"]=tmp["when"]
 			multipart.append(tmpDict)
-	print(getModelFile({"facing": "east", "half": "lower", "hinge": "left", "open": "false"}))
 
 func getModelFile(blockState:Dictionary) -> Variant:
 	for tmp:Dictionary in variants:
@@ -74,3 +73,6 @@ func getModelFile(blockState:Dictionary) -> Variant:
 	for tmp:Dictionary in multipart:
 		pass
 	return
+
+func whenIs() -> bool:
+	return false
