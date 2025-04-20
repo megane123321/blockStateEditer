@@ -20,8 +20,8 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 		push_error("fileを正しく読み込めませんでした。")
 		return
 	var json:Dictionary=JSON.parse_string(file.get_as_text())
-	if "variants" in json:
-		var states:Array=json["variants"].keys()
+	if Constant.VARIANT_KEY in json:
+		var states:Array=json[Constant.VARIANT_KEY].keys()
 		for tmp:String in states:
 			var tmpDict:Dictionary
 			if tmp=="":
@@ -33,19 +33,19 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 					var paras:Array=tmp2.split("=")
 					tmpDict[paras[0]]=paras[1]
 					addStateKey(paras[0])
-			var tmpModel=json["variants"][tmp]
-			var tmpDict2={"variants":tmpDict}
+			var tmpModel=json[Constant.VARIANT_KEY][tmp]
+			var tmpDict2={Constant.VARIANT_KEY:tmpDict}
 			if tmpModel is Array:
 				var modelArray:Array
 				for tmpModel2:Dictionary in tmpModel:
 					modelArray.append(modelInBlockState.new(tmpModel2,workPath))
-				tmpDict2["model"]=modelArray
+				tmpDict2[Constant.MODEL_KEY]=modelArray
 			else:
-				tmpDict2["model"]=modelInBlockState.new(tmpModel,workPath)
+				tmpDict2[Constant.MODEL_KEY]=modelInBlockState.new(tmpModel,workPath)
 			variants.append(tmpDict2)
 		#print(KeyList)
-	if "multipart" in json:
-		var list:Array=json["multipart"]
+	if Constant.MULTI_PART_KEY in json:
+		var list:Array=json[Constant.MULTI_PART_KEY]
 		for tmp:Dictionary in list:
 			var tmpDict:Dictionary
 			var tmpModel=tmp["apply"]
@@ -53,26 +53,53 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 				var modelArray:Array
 				for tmpModel2:Dictionary in tmpModel:
 					modelArray.append(modelInBlockState.new(tmpModel2,workPath))
-				tmpDict["model"]=modelArray
+				tmpDict[Constant.MODEL_KEY]=modelArray
 			else:
-				tmpDict["model"]=modelInBlockState.new(tmpModel,workPath)
-			if "when" in tmp:
-				tmpDict["when"]=tmp["when"]
+				tmpDict[Constant.MODEL_KEY]=modelInBlockState.new(tmpModel,workPath)
+			if Constant.MULTI_PART_CONDITION in tmp:
+				tmpDict[Constant.MULTI_PART_CONDITION]=tmp[Constant.MULTI_PART_CONDITION]
 			multipart.append(tmpDict)
+	getModelFile({})
 
 func getModelFile(blockState:Dictionary) -> Variant:
 	for tmp:Dictionary in variants:
 		var keys:Array=blockState.keys()
 		var flag:bool=true
 		for key in keys:
-			if tmp["variants"][key]!=blockState[key]:
+			if tmp[Constant.VARIANT_KEY][key]!=blockState[key]:
 				flag=false;
 				break;
 		if flag:
-			return tmp["model"]
+			return tmp[Constant.MODEL_KEY]
 	for tmp:Dictionary in multipart:
-		pass
+		var models:Array
+		if whenIs(tmp[Constant.MULTI_PART_CONDITION],blockState):
+			models.append(tmp[Constant.MULTI_PART_CONDITION])
+		return models
 	return
 
-func whenIs() -> bool:
-	return false
+func whenIs(modelState:Dictionary,blockState:Dictionary) -> bool:
+	var keys=modelState.keys()
+	var returnFlag=true
+	for key in keys:
+		if modelState[key] is Array:
+			if key=="OR":
+				var orList=modelState[key]
+				var flag:bool=false
+				for orWhen in orList:
+					flag=whenIs(orWhen,blockState)
+					if flag:
+						break
+				returnFlag=flag
+			if key=="AND":
+				var andList=modelState[key]
+				var flag:bool=true
+				for andWhen in andList:
+					flag=whenIs(andWhen,blockState)
+					if !flag:
+						break
+				returnFlag=flag
+		if modelState[key] is String:
+			modelState[key].begins_with()
+			pass
+	return returnFlag

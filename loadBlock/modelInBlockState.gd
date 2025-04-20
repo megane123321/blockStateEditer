@@ -16,11 +16,11 @@ func _init(model:Dictionary,workSpacePath:String) -> void:
 	if "x" in model:
 		x=model["x"]
 	if "y" in model:
-		x=model["y"]
+		y=model["y"]
 	if "uvlock" in model:
-		x=model["uvlock"]
+		uvlock=model["uvlock"]
 	if "weight" in model:
-		x=model["weight"]
+		weight=model["weight"]
 	get_model()
 
 func _to_string() -> String:
