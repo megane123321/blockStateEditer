@@ -35,13 +35,13 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 					addStateKey(paras[0])
 			var tmpModel=json[Constant.VARIANT_KEY][tmp]
 			var tmpDict2={Constant.VARIANT_KEY:tmpDict}
+			var models:modelInBlockState=modelInBlockState.new()
 			if tmpModel is Array:
-				var modelArray:Array
 				for tmpModel2:Dictionary in tmpModel:
-					modelArray.append(modelInBlockState.new(tmpModel2,workPath))
-				tmpDict2[Constant.MODEL_KEY]=modelArray
+					models.add(tmpModel2,workPath)
 			else:
-				tmpDict2[Constant.MODEL_KEY]=modelInBlockState.new(tmpModel,workPath)
+				models.add(tmpModel,workPath)
+			tmpDict2[Constant.MODEL_KEY]=models
 			variants.append(tmpDict2)
 		#print(KeyList)
 	if Constant.MULTI_PART_KEY in json:
@@ -49,19 +49,19 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 		for tmp:Dictionary in list:
 			var tmpDict:Dictionary
 			var tmpModel=tmp["apply"]
+			var models:modelInBlockState=modelInBlockState.new()
 			if tmpModel is Array:
-				var modelArray:Array
 				for tmpModel2:Dictionary in tmpModel:
-					modelArray.append(modelInBlockState.new(tmpModel2,workPath))
-				tmpDict[Constant.MODEL_KEY]=modelArray
+					models.add(tmpModel2,workPath)
 			else:
-				tmpDict[Constant.MODEL_KEY]=modelInBlockState.new(tmpModel,workPath)
+				models.add(tmpModel,workPath)
+			tmpDict[Constant.MODEL_KEY]=models
 			if Constant.MULTI_PART_CONDITION in tmp:
 				tmpDict[Constant.MULTI_PART_CONDITION]=tmp[Constant.MULTI_PART_CONDITION]
 			multipart.append(tmpDict)
-	getModelFile({})
+	print(getModelFile({}))
 
-func getModelFile(blockState:Dictionary) -> Variant:
+func getModelFile(blockState:Dictionary) -> Array:
 	for tmp:Dictionary in variants:
 		var keys:Array=blockState.keys()
 		var flag:bool=true
@@ -70,13 +70,12 @@ func getModelFile(blockState:Dictionary) -> Variant:
 				flag=false;
 				break;
 		if flag:
-			return tmp[Constant.MODEL_KEY]
+			return [tmp[Constant.MODEL_KEY]]
+	var models:Array=[]
 	for tmp:Dictionary in multipart:
-		var models:Array
-		if whenIs(tmp[Constant.MULTI_PART_CONDITION],blockState):
-			models.append(tmp[Constant.MULTI_PART_CONDITION])
-		return models
-	return
+		if !tmp.has(Constant.MULTI_PART_CONDITION) or whenIs(tmp[Constant.MULTI_PART_CONDITION],blockState):
+			models.append(tmp[Constant.MODEL_KEY])
+	return models
 
 func whenIs(modelState:Dictionary,blockState:Dictionary) -> bool:
 	var keys=modelState.keys()
@@ -99,7 +98,22 @@ func whenIs(modelState:Dictionary,blockState:Dictionary) -> bool:
 					if !flag:
 						break
 				returnFlag=flag
-		if modelState[key] is String:
-			modelState[key].begins_with()
-			pass
+		else:
+			var notFlag:bool=modelState[key].begins_with("!")
+			var checkStr:String
+			if notFlag:
+				checkStr=modelState[key].substr(1)
+			else:
+				checkStr=modelState[key]
+			var values:Array=checkStr.split("|")
+			var flag:bool=false
+			for value in values:
+				if !blockState.has(key):
+					break
+				if value==str(blockState[key]):
+					flag=true
+					print(value)
+			returnFlag=flag
+			if notFlag:
+				returnFlag=!returnFlag
 	return returnFlag
