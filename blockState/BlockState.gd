@@ -59,7 +59,7 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 			if Constant.MULTI_PART_CONDITION in tmp:
 				tmpDict[Constant.MULTI_PART_CONDITION]=tmp[Constant.MULTI_PART_CONDITION]
 			multipart.append(tmpDict)
-	print(getModelFile({}))
+	print(getModelFile({})[0].getModel())
 
 func getModelFile(blockState:Dictionary) -> Array:
 	for tmp:Dictionary in variants:

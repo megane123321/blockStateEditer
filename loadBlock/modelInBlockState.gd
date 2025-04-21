@@ -15,11 +15,13 @@ func _to_string() -> String:
 	returnStr+=" ]"
 	return returnStr
 
-#func getModel(seed:int=0) -> BlockModel:
-	#RandomNumberGenerator.new()
-	#var allWeight:int=0
-	#for tmp:ModelInfo in models:
-		#allWeight+=tmp.weight
+func getModel(randSeed:int=0) -> BlockModel:
+	var random=RandomNumberGenerator.new()
+	var allWeight:int=0
+	for tmp:ModelInfo in models:
+		allWeight+=tmp.weight
+	random.seed=randSeed
+	return models[random.randi_range(0,allWeight-1)].get_model()
 
 class ModelInfo:
 	var modelPath:String=""
@@ -27,7 +29,6 @@ class ModelInfo:
 	var y:int=0
 	var uvlock:bool=false
 	var weight:int=1
-	var blockModel:BlockModel=null
 	var workPath:String
 
 	func _init(model:Dictionary,workSpacePath:String) -> void:
@@ -48,6 +49,4 @@ class ModelInfo:
 		return "model={model}, x={x}, y={y}, uvlock={uvlock}, weight={weight}".format({"model":modelPath,"x":x,"y":y,"uvlock":uvlock,"weight":weight})
 
 	func get_model() -> BlockModel:
-		if blockModel==null:
-			blockModel=BlockModel.new(modelPath,workPath)
-		return blockModel
+		return ModelDataBase.getModel(modelPath,workPath)

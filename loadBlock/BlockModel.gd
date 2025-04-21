@@ -6,14 +6,13 @@ var model:Dictionary
 func _init(modelPath:String,workPath:String,_pathes:Array=[]) -> void:
 	if modelPath in _pathes:
 		return
-	#print(GameFilePath.getModelPath(modelPath,workPath))
 	var file:FileAccess=FileAccess.open(GameFilePath.getModelPath(modelPath,workPath),FileAccess.READ)
 	var json:Dictionary
 	if not file==null:
 		json=JSON.parse_string(file.get_as_text())
 		if json.has(Constant.PARENT):
 			_pathes.append(workPath)
-			model=BlockModel.new(json[Constant.PARENT],workPath,_pathes).model
+			model=ModelDataBase.getModel(json[Constant.PARENT],workPath,_pathes).model
 			model=merge(model,json)
 		else:
 			model=json
@@ -47,3 +46,6 @@ func replaceTextureKey(replace:Variant,keys:Dictionary):
 		replaceTextureKeyOfDictionary(replace,keys)
 	if replace is Array:
 		replaceTextureKeyOfArray(replace,keys)
+
+func _to_string() -> String:
+	return str(model)
