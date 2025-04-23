@@ -21,6 +21,12 @@ text = "changed?"
 [node name="preView" type="Node3D" parent="."]
 script = ExtResource("2_ipym4")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="preView"]
+transform = Transform3D(1, 0, 0, 0, 0.80837, 0.588675, 0, -0.588675, 0.80837, 0, 0.990109, 0)
+
+[node name="Camera3D" type="Camera3D" parent="preView"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.47082)
+
 [node name="loadingOverRay" type="Node" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="loadingOverRay"]
