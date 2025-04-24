@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8f1doam08ak3"
-path="res://.godot/imported/acacia_door_top.png-9e2f39dfdc05537ec035036eba37a718.ctex"
+uid="uid://12vk30fshare"
+path="res://.godot/imported/grass_block_side.png-f0fb46f6216c79b97d3f00cd746319c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test_json/minecraft/textures/block/acacia_door_top.png"
-dest_files=["res://.godot/imported/acacia_door_top.png-9e2f39dfdc05537ec035036eba37a718.ctex"]
+source_file="res://resource/minecraft/textures/block/grass_block_side.png"
+dest_files=["res://.godot/imported/grass_block_side.png-f0fb46f6216c79b97d3f00cd746319c5.ctex"]
 
 [params]
 

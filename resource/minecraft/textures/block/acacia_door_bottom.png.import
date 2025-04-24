@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2gccagxtcif5"
-path="res://.godot/imported/dirt.png-b58412a1aac5653619c6a92641d09fb0.ctex"
+uid="uid://8qppkarfsh14"
+path="res://.godot/imported/acacia_door_bottom.png-fbd8c921b811dcca4abce23870f8b5d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test_json/minecraft/textures/block/dirt.png"
-dest_files=["res://.godot/imported/dirt.png-b58412a1aac5653619c6a92641d09fb0.ctex"]
+source_file="res://resource/minecraft/textures/block/acacia_door_bottom.png"
+dest_files=["res://.godot/imported/acacia_door_bottom.png-fbd8c921b811dcca4abce23870f8b5d0.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8qppkarfsh14"
-path="res://.godot/imported/acacia_door_bottom.png-fc9157b66a372545f4804a7491df7bbf.ctex"
+uid="uid://bod3hi6ix4tv2"
+path="res://.godot/imported/oak_planks.png-0aedad252812c3c14dff295cfe97a2f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test_json/minecraft/textures/block/acacia_door_bottom.png"
-dest_files=["res://.godot/imported/acacia_door_bottom.png-fc9157b66a372545f4804a7491df7bbf.ctex"]
+source_file="res://resource/minecraft/textures/block/oak_planks.png"
+dest_files=["res://.godot/imported/oak_planks.png-0aedad252812c3c14dff295cfe97a2f8.ctex"]
 
 [params]
 
