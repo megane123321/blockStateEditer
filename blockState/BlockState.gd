@@ -1,15 +1,15 @@
 class_name BlockState
 
-var variants:Array
-var multipart:Array
-var keyList:Array
+var variants:Array#ブロック状態(完全一致)
+var multipart:Array#ブロック状態(複数選択可)
+var keyList:Array#使用されるキー(ゲーム版ではブロックのソースから取得)
 
 func addStateKey(key:String) -> void:
 	if not key in keyList:
 		keyList.append(key)
 
 func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
-	keyList=keys
+	keyList=keys#外部からのキー登録
 	var filePath:String
 	if useWorkPath:
 		filePath=GameFilePath.getBlockStatePath(path,workPath)
@@ -20,10 +20,12 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 		push_error("fileを正しく読み込めませんでした。")
 		return
 	var json:Dictionary=JSON.parse_string(file.get_as_text())
-	if Constant.VARIANT_KEY in json:
+	#読み込んだjsonの解析
+	if Constant.VARIANT_KEY in json:#完全一致型
 		var states:Array=json[Constant.VARIANT_KEY].keys()
 		for tmp:String in states:
 			var tmpDict:Dictionary
+			#ブロック状態キーの登録(ここから)/ゲーム版ではaddStateKey関数削除
 			if tmp=="":
 				tmpDict={"":""}
 				addStateKey("")
@@ -33,19 +35,22 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 					var paras:Array=tmp2.split("=")
 					tmpDict[paras[0]]=paras[1]
 					addStateKey(paras[0])
+			#ブロック状態キーの登録(ここまで)
+			#モデルファイルとキーの対応付け
 			var tmpModel=json[Constant.VARIANT_KEY][tmp]
 			var tmpDict2={Constant.VARIANT_KEY:tmpDict}
 			var models:modelInBlockState=modelInBlockState.new()
 			if tmpModel is Array:
 				for tmpModel2:Dictionary in tmpModel:
-					models.add(tmpModel2,workPath)
+					models.add(tmpModel2,workPath)#モデルの読み込み
 			else:
 				models.add(tmpModel,workPath)
 			tmpDict2[Constant.MODEL_KEY]=models
 			variants.append(tmpDict2)
-		#print(KeyList)
+	#複数選択可型
 	if Constant.MULTI_PART_KEY in json:
 		var list:Array=json[Constant.MULTI_PART_KEY]
+		#モデルとキーの対応付け
 		for tmp:Dictionary in list:
 			var tmpDict:Dictionary
 			var tmpModel=tmp["apply"]
@@ -59,9 +64,9 @@ func _init(path:String,workPath:String,useWorkPath=true,keys:Array=[]) -> void:
 			if Constant.MULTI_PART_CONDITION in tmp:
 				tmpDict[Constant.MULTI_PART_CONDITION]=tmp[Constant.MULTI_PART_CONDITION]
 			multipart.append(tmpDict)
-	print(getModelFile({})[0].getModel())
 
-func getModelFile(blockState:Dictionary) -> Array:
+func getModelFile(blockState:Dictionary) -> Array:#指定したブロック状態に対応したModelInBlockStateの配列を返す
+	#完全一致型
 	for tmp:Dictionary in variants:
 		var keys:Array=blockState.keys()
 		var flag:bool=true
@@ -72,12 +77,13 @@ func getModelFile(blockState:Dictionary) -> Array:
 		if flag:
 			return [tmp[Constant.MODEL_KEY]]
 	var models:Array=[]
+	#複数選択可(複数モデルが帰ってくるかも)
 	for tmp:Dictionary in multipart:
 		if !tmp.has(Constant.MULTI_PART_CONDITION) or whenIs(tmp[Constant.MULTI_PART_CONDITION],blockState):
 			models.append(tmp[Constant.MODEL_KEY])
 	return models
 
-func whenIs(modelState:Dictionary,blockState:Dictionary) -> bool:
+func whenIs(modelState:Dictionary,blockState:Dictionary) -> bool:#複数選択可型の条件クリアチェック
 	var keys=modelState.keys()
 	var returnFlag=true
 	for key in keys:
@@ -112,7 +118,6 @@ func whenIs(modelState:Dictionary,blockState:Dictionary) -> bool:
 					break
 				if value==str(blockState[key]):
 					flag=true
-					print(value)
 			returnFlag=flag
 			if notFlag:
 				returnFlag=!returnFlag

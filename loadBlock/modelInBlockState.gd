@@ -3,7 +3,7 @@ extends Node
 
 var models:Array
 
-func add(model:Dictionary,workSpacePath:String)->void:
+func add(model:Dictionary,workSpacePath:String)->void:#ブロックのモデル情報登録
 	models.append(ModelInfo.new(model,workSpacePath))
 
 func _to_string() -> String:
@@ -15,15 +15,22 @@ func _to_string() -> String:
 	returnStr+=" ]"
 	return returnStr
 
-func getModel(randSeed:int=0) -> BlockModel:
+func getModel(randSeed:int=0) -> Model:#ブロックのモデル
 	var random=RandomNumberGenerator.new()
 	var allWeight:int=0
 	for tmp:ModelInfo in models:
 		allWeight+=tmp.weight
 	random.seed=randSeed
-	return models[random.randi_range(0,allWeight-1)].get_model()
+	var randNum:int=random.randi_range(0,allWeight-1)
+	var count:int=0
+	for tmp:ModelInfo in models:
+		randNum-=tmp.weight
+		if randNum<0:
+			break;
+		count+=1;
+	return models[count].get_model()
 
-class ModelInfo:
+class ModelInfo:#モデル情報
 	var modelPath:String=""
 	var x:int=0
 	var y:int=0
@@ -43,10 +50,9 @@ class ModelInfo:
 			uvlock=model["uvlock"]
 		if "weight" in model:
 			weight=model["weight"]
-		get_model()
 
 	func _to_string() -> String:
 		return "model={model}, x={x}, y={y}, uvlock={uvlock}, weight={weight}".format({"model":modelPath,"x":x,"y":y,"uvlock":uvlock,"weight":weight})
 
-	func get_model() -> BlockModel:
-		return ModelDataBase.getModel(modelPath,workPath)
+	func get_model() -> Model:
+		return ModelDataBase.getModel(modelPath,workPath).getModel()

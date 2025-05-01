@@ -1,23 +1,31 @@
 class_name BlockModel
 extends Node
 
-var model:Dictionary
+var modelJson:Dictionary
+var model:Model
+var workPath:String
 
-func _init(modelPath:String,workPath:String,_pathes:Array=[]) -> void:
+func _init(modelPath:String,_workPath:String,_pathes:Array=[]) -> void:#モデルの読み込み
 	if modelPath in _pathes:
 		return
-	var file:FileAccess=FileAccess.open(GameFilePath.getModelPath(modelPath,workPath),FileAccess.READ)
+	var file:FileAccess=FileAccess.open(GameFilePath.getModelPath(modelPath,_workPath),FileAccess.READ)
 	var json:Dictionary
 	if not file==null:
 		json=JSON.parse_string(file.get_as_text())
-		if json.has(Constant.PARENT):
+		if json.has(Constant.PARENT):#親モデルがある場合
 			_pathes.append(workPath)
-			model=ModelDataBase.getModel(json[Constant.PARENT],workPath,_pathes).model
-			model=merge(model,json)
+			modelJson=ModelDataBase.getModel(json[Constant.PARENT],_workPath,_pathes).modelJson
+			modelJson=merge(modelJson,json)
 		else:
-			model=json
+			modelJson=json
+	workPath=_workPath
 
-func merge(mergeModel:Dictionary,dict:Dictionary) -> Dictionary:
+func getModel()->Model:
+	if model==null:
+		model=Model.new(modelJson,workPath)#モデル
+	return model
+
+func merge(mergeModel:Dictionary,dict:Dictionary) -> Dictionary:#親モデルと自モデルの統合
 	if dict.has(Constant.TEXTURES_KEYS):
 		if not mergeModel.has(Constant.TEXTURES_KEYS):
 			mergeModel[Constant.TEXTURES_KEYS]={}
@@ -48,4 +56,4 @@ func replaceTextureKey(replace:Variant,keys:Dictionary):
 		replaceTextureKeyOfArray(replace,keys)
 
 func _to_string() -> String:
-	return str(model)
+	return str(modelJson)

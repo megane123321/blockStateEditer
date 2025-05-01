@@ -6,11 +6,11 @@ func _ready() -> void:
 
 var overRay:OverRay=null
 
-func createOverRay() -> void:
+func createOverRay() -> void:#オーバーレイの作成
 	overRay=OverRay.new()
 	get_parent().add_child(overRay)
 	
-func getOverRay() -> OverRay:
+func getOverRay() -> OverRay:#オーバーレイの取得
 	if overRay==null:
 		createOverRay()
 	return overRay
