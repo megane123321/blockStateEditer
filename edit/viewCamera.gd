@@ -1,0 +1,2 @@
+class_name ViewCamera
+extends Camera3D

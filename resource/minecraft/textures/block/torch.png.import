@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cai3uupbb4kwi"
-path="res://.godot/imported/texture.png-cbfd3574c5e78378fdd969cc768009a2.ctex"
+uid="uid://m5u7fpysqgm"
+path="res://.godot/imported/torch.png-bcd233103d8a6add70feb73b6fd668d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/minecraft/textures/block/texture.png"
-dest_files=["res://.godot/imported/texture.png-cbfd3574c5e78378fdd969cc768009a2.ctex"]
+source_file="res://resource/minecraft/textures/block/torch.png"
+dest_files=["res://.godot/imported/torch.png-bcd233103d8a6add70feb73b6fd668d4.ctex"]
 
 [params]
 

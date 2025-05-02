@@ -71,7 +71,7 @@ func getModelFile(blockState:Dictionary) -> Array:#指定したブロック状�
 		var keys:Array=blockState.keys()
 		var flag:bool=true
 		for key in keys:
-			if tmp[Constant.VARIANT_KEY][key]!=blockState[key]:
+			if tmp[Constant.VARIANT_KEY].has(key) and tmp[Constant.VARIANT_KEY][key]!=blockState[key]:
 				flag=false;
 				break;
 		if flag:

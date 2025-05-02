@@ -32,8 +32,8 @@ func getModel(randSeed:int=0) -> Model:#ブロックのモデル
 
 class ModelInfo:#モデル情報
 	var modelPath:String=""
-	var x:int=0
-	var y:int=0
+	var x:float=0
+	var y:float=0
 	var uvlock:bool=false
 	var weight:int=1
 	var workPath:String
@@ -55,4 +55,4 @@ class ModelInfo:#モデル情報
 		return "model={model}, x={x}, y={y}, uvlock={uvlock}, weight={weight}".format({"model":modelPath,"x":x,"y":y,"uvlock":uvlock,"weight":weight})
 
 	func get_model() -> Model:
-		return ModelDataBase.getModel(modelPath,workPath).getModel()
+		return ModelDataBase.getModel(modelPath,workPath,[],x,y).getModel()

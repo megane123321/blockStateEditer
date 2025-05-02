@@ -2,9 +2,11 @@ class_name ModelDataBase
 
 static var blockModelData:Dictionary
 
-static func getModel(path:String,workPath:String,pathes:Array=[])->BlockModel:
-	if blockModelData.has(path):#モデルが既に読み込まれていた場合
-		return blockModelData[path]
+static func getModel(path:String,workPath:String,pathes:Array=[],blockRotateX:float=0,blockRotateY:float=0)->BlockModel:
+	var modelKey:String="path={path},x={x},y={y}".format({"path":path,"x":blockRotateX,"y":blockRotateY})
+	print(modelKey)
+	if blockModelData.has(modelKey):#モデルが既に読み込まれていた場合
+		return blockModelData[modelKey]
 	else:
-		blockModelData[path]=BlockModel.new(path,workPath,pathes)
-	return blockModelData[path]
+		blockModelData[modelKey]=BlockModel.new(path,workPath,pathes,blockRotateX,blockRotateY)
+	return blockModelData[modelKey]

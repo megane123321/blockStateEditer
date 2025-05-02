@@ -14,6 +14,6 @@ func newFile(path:String) -> void:
 
 func loadBlock(path:String) -> void:
 	setWorkPath(path)
-	var tmp=BlockState.new(path,workPath,false).getModelFile({})
+	var tmp=BlockState.new(path,workPath,false).getModelFile({"north":true,"east":true,"west":false,"south":false})
 	for i in tmp:
 		add_child(i.getModel())

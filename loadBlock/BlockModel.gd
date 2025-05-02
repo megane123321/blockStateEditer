@@ -4,8 +4,10 @@ extends Node
 var modelJson:Dictionary
 var model:Model
 var workPath:String
+var rotateX:float
+var rotateY:float
 
-func _init(modelPath:String,_workPath:String,_pathes:Array=[]) -> void:#モデルの読み込み
+func _init(modelPath:String,_workPath:String,_pathes:Array=[],blockRotateX:float=0,blockRotateY:float=0) -> void:#モデルの読み込み
 	if modelPath in _pathes:
 		return
 	var file:FileAccess=FileAccess.open(GameFilePath.getModelPath(modelPath,_workPath),FileAccess.READ)
@@ -19,10 +21,12 @@ func _init(modelPath:String,_workPath:String,_pathes:Array=[]) -> void:#モデ�
 		else:
 			modelJson=json
 	workPath=_workPath
+	rotateX=blockRotateX
+	rotateY=blockRotateY
 
 func getModel()->Model:
 	if model==null:
-		model=Model.new(modelJson,workPath)#モデル
+		model=Model.new(modelJson,workPath,rotateX,rotateY)#モデル
 	return model
 
 func merge(mergeModel:Dictionary,dict:Dictionary) -> Dictionary:#親モデルと自モデルの統合

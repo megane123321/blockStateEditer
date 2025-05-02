@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcx48xapq4s6f"]
+[gd_scene load_steps=5 format=3 uid="uid://dcx48xapq4s6f"]
 
 [ext_resource type="Script" uid="uid://bv1jjilkgfdtf" path="res://edit/edit.gd" id="1_nrulf"]
 [ext_resource type="Script" uid="uid://d34dxjgxbq3q5" path="res://edit/pre_view.gd" id="2_ipym4"]
+[ext_resource type="Script" uid="uid://b500u6ami8yko" path="res://edit/viewCamera.gd" id="3_wke7w"]
 
 [sub_resource type="Environment" id="Environment_ipym4"]
 
@@ -28,6 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 0.80837, 0.588675, 0, -0.588675, 0.80837, 0,
 
 [node name="Camera3D" type="Camera3D" parent="preView"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.47082)
+script = ExtResource("3_wke7w")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="preView"]
 environment = SubResource("Environment_ipym4")
