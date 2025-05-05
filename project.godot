@@ -14,7 +14,3 @@ config/name="BlockEditer"
 run/main_scene="uid://cp7h4n2rumbdq"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
-
-[rendering]
-
-renderer/rendering_method="mobile"
