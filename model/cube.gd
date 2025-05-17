@@ -38,7 +38,6 @@ func _init(cubeInfo:Dictionary,workPath:String,blockRotateX:float=0,blockRotateY
 		point=rotate(point,Constant.BLOCK_CENTER,Vector3(1,0,0),blockRotateX)
 		point=rotate(point,Constant.BLOCK_CENTER,Vector3(0,-1,0),blockRotateY)
 		cube.append(point)
-	print(cubeInfo)
 	#make_mesh(cube,cubeInfo,workPath)
 
 func _to_string() -> String:
@@ -124,6 +123,4 @@ func _to_string() -> String:
 
 func rotate(point:Vector3,center:Vector3,axis:Vector3,angle:float)->Vector3:
 	var tmp:Vector3=point-center
-	print(tmp)
-	print(angle,deg_to_rad(angle))
 	return tmp.rotated(axis.normalized(),deg_to_rad(angle))+center
