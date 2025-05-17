@@ -41,6 +41,9 @@ func _init(cubeInfo:Dictionary,workPath:String,blockRotateX:float=0,blockRotateY
 	print(cubeInfo)
 	#make_mesh(cube,cubeInfo,workPath)
 
+func _to_string() -> String:
+	return str(cube)
+
 #func move(vec:Vector3):
 	#for i in len(cube):
 		#cube[i]+=vec
