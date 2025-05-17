@@ -2,6 +2,8 @@ class_name Cube
 extends Node
 
 var cube:Array
+var cubeRotateX:float
+var cubeRotateY:float
 
 func _init(cubeInfo:Dictionary,workPath:String,blockRotateX:float=0,blockRotateY:float=0) -> void:
 	var from:Array=cubeInfo[Constant.CUBE_FROM]
@@ -37,6 +39,8 @@ func _init(cubeInfo:Dictionary,workPath:String,blockRotateX:float=0,blockRotateY
 					point=rotate(point,origin,Vector3(0,0,1),cubeInfo[Constant.CUBE_ROTATION][Constant.CUBE_ANGLE])
 		point=rotate(point,Constant.BLOCK_CENTER,Vector3(1,0,0),blockRotateX)
 		point=rotate(point,Constant.BLOCK_CENTER,Vector3(0,-1,0),blockRotateY)
+		cubeRotateX=blockRotateX
+		cubeRotateY=blockRotateY
 		cube.append(point)
 	#make_mesh(cube,cubeInfo,workPath)
 
