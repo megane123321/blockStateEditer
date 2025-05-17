@@ -16,4 +16,4 @@ func loadBlock(path:String) -> void:
 	setWorkPath(path)
 	var tmp=BlockState.new(path,workPath,false).getModelFile({})
 	for i in tmp:
-		add_child(i.getModel())
+		print(i.getModel().cubes)
